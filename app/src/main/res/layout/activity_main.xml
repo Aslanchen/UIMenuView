@@ -14,22 +14,10 @@
         app:uimv_showSub="true"
         app:uimv_subImage="@drawable/ic_right"
         app:uimv_subTitle="Sub"
-        app:uimv_textSizeSubTitle="15sp"
-        app:uimv_textSizeTitle="20sp"
-        app:uimv_title="Title" />
-
-    <aslanchen.uimenuview.UIMenuView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"
-        android:padding="5dp"
-        app:uimv_showSub="true"
-        app:uimv_subTitle="Sub"
         app:uimv_textColorSubTitle="@android:color/tertiary_text_light"
         app:uimv_textColorTitle="@android:color/primary_text_dark"
-        app:uimv_textSizeSubTitle="15sp"
-        app:uimv_textSizeTitle="20sp"
+        app:uimv_textSizeSubTitle="8sp"
+        app:uimv_textSizeTitle="10sp"
         app:uimv_title="Title" />
 
     <aslanchen.uimenuview.UIInputView
@@ -38,10 +26,10 @@
         android:layout_marginTop="10dp"
         android:background="@android:color/darker_gray"
         android:padding="5dp"
-        app:uiiv_title="Title"
         app:uiiv_hint="please input"
         app:uiiv_textColorInput="@android:color/tertiary_text_light"
         app:uiiv_textColorTitle="@android:color/primary_text_dark"
         app:uiiv_textSizeInput="8sp"
-        app:uiiv_textSizeTitle="10sp" />
+        app:uiiv_textSizeTitle="10sp"
+        app:uiiv_title="Title" />
 </LinearLayout>
