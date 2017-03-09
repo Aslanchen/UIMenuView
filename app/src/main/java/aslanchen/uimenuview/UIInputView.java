@@ -273,4 +273,24 @@ public class UIInputView extends LinearLayout implements View.OnClickListener, T
     public void setOnEditorActionListener(TextView.OnEditorActionListener l) {
         et_input.setOnEditorActionListener(l);
     }
+
+    public void setTextInput(CharSequence text) {
+        et_input.setText(text);
+    }
+
+    public CharSequence getTextInput(CharSequence text) {
+        return et_input.getText();
+    }
+
+    public void setTextTitle(CharSequence text) {
+        tv_title.setText(text);
+    }
+
+    public void setTextColorTitle(int color) {
+        tv_title.setTextColor(color);
+    }
+
+    public void setTextColorInput(int color) {
+        et_input.setTextColor(color);
+    }
 }
