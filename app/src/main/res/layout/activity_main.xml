@@ -5,10 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <aslanchen.uimenuview.UIMenuView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
+        android:layout_marginTop="10dp"
+        android:text="显示控件：" />
+
+    <aslanchen.uimenuview.UIMenuView
+        android:id="@+id/uimv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_text"
         android:padding="5dp"
         app:uimv_image="@drawable/ic_left"
         app:uimv_showSub="true"
@@ -20,10 +27,15 @@
         app:uimv_textSizeTitle="10sp"
         app:uimv_title="Title" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="输入控件：" />
+
     <aslanchen.uimenuview.UIInputView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="@android:color/darker_gray"
         android:padding="5dp"
         app:uiiv_hint="please input"
