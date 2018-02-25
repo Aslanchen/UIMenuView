@@ -2,32 +2,26 @@
 <resources>
     <declare-styleable name="UIMenuView">
         <attr name="uimv_title" format="reference|string" />
-        <attr name="uimv_image" format="reference" />
+        <attr name="uimv_image" format="reference|integer" />
         <attr name="uimv_subTitle" format="reference|string" />
-        <attr name="uimv_subImage" format="reference" />
-        <attr name="uimv_showSub" format="boolean" />
-        <attr name="uimv_textColorTitle" format="color" />
-        <attr name="uimv_textColorSubTitle" format="color" />
+        <attr name="uimv_subImage" format="reference|integer" />
+        <attr name="uimv_textColorTitle" format="reference|color" />
+        <attr name="uimv_textColorSubTitle" format="reference|color" />
         <attr name="uimv_textSizeTitle" format="reference|dimension" />
         <attr name="uimv_textSizeSubTitle" format="reference|dimension" />
-    </declare-styleable>
-    <declare-styleable name="UIInputView">
-        <attr name="uiiv_title" format="reference|string" />
-        <attr name="uiiv_textColorTitle" format="color" />
-        <attr name="uiiv_textSizeTitle" format="reference|dimension" />
-        <attr name="uiiv_hint" format="reference|string" />
-        <attr name="uiiv_maxLength" format="integer" />
-        <attr name="uiiv_maxNumber" format="integer" />
-        <attr name="uiiv_textColorInput" format="color" />
-        <attr name="uiiv_textSizeInput" format="reference|dimension" />
-        <attr name="uiiv_inputType">
+        <attr name="uimv_drawablePaddingTitle" format="reference|dimension" />
+        <attr name="uimv_drawablePaddingSubTitle" format="reference|dimension" />
+        <attr name="uimv_single" format="reference|boolean" />
+        <attr name="uimv_maxLength" format="reference|integer" />
+        <attr name="uimv_showSub" format="reference|boolean" />
+        <attr name="uimv_hint" format="reference|string" />
+        <attr name="uimv_inputType">
             <enum name="normal" value="1" />
             <enum name="numberDecimal" value="2" />
-            <enum name="text" value="3" />
-            <enum name="phone" value="4" />
-            <enum name="number" value="5" />
-            <enum name="textPassword" value="6" />
-            <enum name="numberPassword" value="7" />
+            <enum name="phone" value="3" />
+            <enum name="number" value="4" />
+            <enum name="textPassword" value="5" />
+            <enum name="numberPassword" value="6" />
         </attr>
     </declare-styleable>
 </resources>

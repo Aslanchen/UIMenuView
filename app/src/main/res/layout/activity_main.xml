@@ -36,12 +36,15 @@
     <aslanchen.uimenuview.UIInputView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
+        android:background="@drawable/selector_text"
         android:padding="5dp"
-        app:uiiv_hint="please input"
-        app:uiiv_textColorInput="@android:color/tertiary_text_light"
-        app:uiiv_textColorTitle="@android:color/primary_text_dark"
-        app:uiiv_textSizeInput="8sp"
-        app:uiiv_textSizeTitle="10sp"
-        app:uiiv_title="Title" />
+        app:uimv_hint="please input"
+        app:uimv_image="@drawable/ic_left"
+        app:uimv_maxLength="10"
+        app:uimv_showSub="true"
+        app:uimv_textColorSubTitle="@android:color/tertiary_text_light"
+        app:uimv_textColorTitle="@android:color/primary_text_dark"
+        app:uimv_textSizeSubTitle="8sp"
+        app:uimv_textSizeTitle="10sp"
+        app:uimv_title="Title" />
 </LinearLayout>

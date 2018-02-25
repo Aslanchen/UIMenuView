@@ -1,12 +1,19 @@
 package aslanchen.uimenuview;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,8 +22,9 @@ import android.widget.TextView;
  */
 
 public class UIMenuView extends RelativeLayout {
-    private TextView tv_title, tv_subTitle;
-    private Context context;
+    protected TextView title;
+    protected EditText subTitle;
+    protected Context context;
 
     public UIMenuView(Context context) {
         this(context, null);
@@ -32,62 +40,111 @@ public class UIMenuView extends RelativeLayout {
 
         LayoutInflater.from(context).inflate(R.layout.layout_ui_menu, this);
         TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.UIMenuView);
+        if (typeArray == null) {
+            return;
+        }
 
         // Title
-        tv_title = (TextView) this.findViewById(R.id.tv_title);
+        title = this.findViewById(R.id.title);
         CharSequence title = typeArray.getText(R.styleable.UIMenuView_uimv_title);
-        if (title != null) {
-            tv_title.setText(title);
+        if (TextUtils.isEmpty(title) == false) {
+            setTitle(title);
         }
 
         //Title-Color
-        ColorStateList textColorTitle = typeArray
-                .getColorStateList(R.styleable.UIMenuView_uimv_textColorTitle);
-        if (textColorTitle != null) {
-            tv_title.setTextColor(textColorTitle);
-        }
+        int textColorTitle = typeArray.getColor(R.styleable.UIMenuView_uimv_textColorTitle, ContextCompat.getColor(context, android.R.color.background_dark));
+        setTextColorTitle(textColorTitle);
 
         //Title-Size
-        float textSizeTitle = typeArray
-                .getDimension(R.styleable.UIMenuView_uimv_textSizeTitle, -1);
+        float textSizeTitle = typeArray.getDimension(R.styleable.UIMenuView_uimv_textSizeTitle, -1);
         if (textSizeTitle != -1) {
-            tv_title.setTextSize(textSizeTitle);
+            this.title.setTextSize(textSizeTitle);
         }
 
         //Title-Image
         Drawable drawableTitle = typeArray.getDrawable(R.styleable.UIMenuView_uimv_image);
-        tv_title.setCompoundDrawablesWithIntrinsicBounds(drawableTitle, null, null, null);
+        if (drawableTitle != null) {
+            setImageTitle(drawableTitle);
+        }
+
+        //Title-drawablePaddingTitle
+        int drawablePaddingTitle = typeArray.getDimensionPixelSize(R.styleable.UIMenuView_uimv_drawablePaddingTitle, 5);
+        this.title.setCompoundDrawablePadding(drawablePaddingTitle);
 
         // SubTitle
+        subTitle = this.findViewById(R.id.subTitle);
+        subTitle.setEnabled(false);
+        subTitle.setBackground(null);
+        CharSequence subTitle = typeArray.getText(R.styleable.UIMenuView_uimv_subTitle);
+        if (TextUtils.isEmpty(subTitle) == false) {
+            setSubTitle(subTitle);
+        }
+
+        //SubTitle-Color
+        int textColorSubTitle = typeArray.getColor(R.styleable.UIMenuView_uimv_textColorSubTitle, ContextCompat.getColor(context, android.R.color.background_dark));
+        setTextColorSubTitle(textColorSubTitle);
+
+        //SubTitle-Size
+        float textSizeSubTitle = typeArray.getDimension(R.styleable.UIMenuView_uimv_textSizeSubTitle, -1);
+        if (textSizeSubTitle != -1) {
+            this.subTitle.setTextSize(textSizeSubTitle);
+        }
+
+        //SubTitle-Image
+        Drawable drawableSubTitle = typeArray.getDrawable(R.styleable.UIMenuView_uimv_subImage);
+        if (drawableSubTitle != null) {
+            setImageSubTitle(drawableSubTitle);
+        }
+
+        //SubTitle-drawablePaddingSubTitle
+        int drawablePaddingSubTitle = typeArray.getDimensionPixelSize(R.styleable.UIMenuView_uimv_drawablePaddingSubTitle, 5);
+        this.subTitle.setCompoundDrawablePadding(drawablePaddingSubTitle);
+
+        //SubTitle-single
+        Boolean single = typeArray.getBoolean(R.styleable.UIMenuView_uimv_single, true);
+        setSingleLine(single);
+
+        //SubTitle-maxLength
+        int maxLength = typeArray.getInt(R.styleable.UIMenuView_uimv_maxLength, 0);
+        setMaxLength(maxLength);
+
+        //SubTitle-isShowSub
         Boolean isShowSub = typeArray.getBoolean(R.styleable.UIMenuView_uimv_showSub, false);
-        tv_subTitle = (TextView) this.findViewById(R.id.tv_subTitle);
-        if (isShowSub == true) {
-            tv_subTitle.setVisibility(View.VISIBLE);
+        setShowSub(isShowSub);
 
-            CharSequence subTitle = typeArray.getText(R.styleable.UIMenuView_uimv_subTitle);
-            if (subTitle != null) {
-                tv_subTitle.setText(subTitle);
-            }
+        //SubTitle-uimv_hint
+        CharSequence hint = typeArray.getText(R.styleable.UIMenuView_uimv_hint);
+        setHint(hint);
 
-            //SubTitle-Color
-            ColorStateList textColorSubTitle = typeArray
-                    .getColorStateList(R.styleable.UIMenuView_uimv_textColorSubTitle);
-            if (textColorSubTitle != null) {
-                tv_subTitle.setTextColor(textColorSubTitle);
-            }
-
-            //SubTitle-Size
-            float textSizeSubTitle = typeArray
-                    .getDimension(R.styleable.UIMenuView_uimv_textSizeSubTitle, -1);
-            if (textSizeSubTitle != -1) {
-                tv_subTitle.setTextSize(textSizeSubTitle);
-            }
-
-            //SubTitle-Image
-            Drawable drawableSubTitle = typeArray.getDrawable(R.styleable.UIMenuView_uimv_subImage);
-            tv_subTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, drawableSubTitle, null);
-        } else {
-            tv_subTitle.setVisibility(View.GONE);
+        //SubTitle-inputType
+        int input_type = typeArray.getInt(R.styleable.UIMenuView_uimv_inputType, 1);
+        switch (input_type) {
+            case 1:
+                // normal
+                this.subTitle.setInputType(InputType.TYPE_NULL);
+                break;
+            case 2:
+                // numberDecimal
+                this.subTitle.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                break;
+            case 3:
+                // phone
+                this.subTitle.setInputType(InputType.TYPE_CLASS_PHONE);
+                break;
+            case 4:
+                // number
+                this.subTitle.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
+            case 5:
+                // textPassword
+                this.subTitle.setInputType(
+                        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                break;
+            case 6:
+                // numberPassword
+                this.subTitle.setInputType(
+                        InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+                break;
         }
 
         // 回收
@@ -95,26 +152,71 @@ public class UIMenuView extends RelativeLayout {
     }
 
     public void setTitle(CharSequence text) {
-        tv_title.setText(text);
+        title.setText(text);
+    }
+
+    public void setTitle(@StringRes int resid) {
+        title.setText(resid);
     }
 
     public void setSubTitle(CharSequence text) {
-        tv_title.setText(text);
+        subTitle.setText(text);
+    }
+
+    public void setSubTitle(@StringRes int resid) {
+        subTitle.setText(resid);
     }
 
     public void setImageTitle(Drawable drawable) {
-        tv_title.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+        title.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+    }
+
+    public void setImageTitle(@DrawableRes int id) {
+        Drawable drawable = ContextCompat.getDrawable(context, id);
+        setImageTitle(drawable);
     }
 
     public void setImageSubTitle(Drawable drawable) {
-        tv_subTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+        subTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
     }
 
-    public void setTextColorTitle(int color) {
-        tv_subTitle.setTextColor(color);
+    public void setImageSubTitle(@DrawableRes int id) {
+        Drawable drawable = ContextCompat.getDrawable(context, id);
+        setImageSubTitle(drawable);
     }
 
-    public void setTextColorSubTitle(int color) {
-        tv_subTitle.setTextColor(color);
+    public void setTextColorTitle(@ColorInt int color) {
+        title.setTextColor(color);
+    }
+
+    public void setTextColorSubTitle(@ColorInt int color) {
+        subTitle.setTextColor(color);
+    }
+
+    public void setSingleLine(Boolean single) {
+        subTitle.setSingleLine(single);
+        if (single == true) {
+            subTitle.setMaxLines(1);
+        }
+    }
+
+    public void setMaxLength(int maxLength) {
+        if (maxLength <= 0) {
+            return;
+        }
+        InputFilter maxLengthFilter = new InputFilter.LengthFilter(maxLength);
+        subTitle.setFilters(new InputFilter[]{maxLengthFilter});
+    }
+
+    public void setShowSub(boolean isShow) {
+        subTitle.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    public void setHint(CharSequence text) {
+        subTitle.setHint(text);
+    }
+
+    public void setHint(@StringRes int resid) {
+        subTitle.setHint(resid);
     }
 }
